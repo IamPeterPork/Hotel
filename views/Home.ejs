@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="CSS/home.css">
+</head>
+
+<body>
+
+    <%- include('../views/components/navbar.ejs') %>
+    <main>
+        <!-- Search -->
+        <div class="search">
+            <input type="text" placeholder="ค้นหาโรงแรม">
+        </div>
+        <!-- Header -->
+        <p id="hotdeals">Hot Deals</p>
+        <!-- Card Hotel -->
+        <div class="list-container">
+            <!-- Loop through hotels using EJS -->
+            <% hotels.forEach(hotel => { %>
+                <div class="list" data-name="<%= hotel.name %>">
+                    <!-- Display Image -->
+                    <img src="<%= hotel.imageLink %>" alt="<%= hotel.name %>">
+                    <!-- Display Detail -->
+                    <div class="details">
+                        <div class="title-price">
+                            <span ><%= hotel.name %></span>
+                            <span style="text-align: end;"><%= hotel.price %> บ./คืน</span>
+                        </div>
+                        <p class="stars">
+                            <% for (let i = 0; i < 5; i++) { %>
+                                <% if (i < hotel.rating) { %>
+                                    ★
+                                <% } else { %>
+                                    ☆
+                                <% } %>
+                            <% } %>
+                        </p>
+                        <p class="review"><%= hotel.details %></p>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+    <%- include('../views/components/footer.ejs') %>
+
+    <!-- Include JavaScript file -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hotelItems = document.querySelectorAll('.list');
+            
+            hotelItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const hotelName = item.getAttribute('data-name');
+                    
+                    // Redirect to the books page based on the clicked hotel
+                    window.location.href = `/books/${hotelName}`;
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

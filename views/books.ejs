@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            margin: 25px auto;
+            width: fit-content;
+            flex-direction: column;
+        }
+
+        .container-main {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-direction: row;
+            margin-bottom: 30px;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            width: 600px;
+            height: auto;
+            background-color: rgb(255, 255, 255);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .picture {
+            display: flex;
+            flex-direction: column;
+            width: 600px;
+            height: 400px;
+            background-image: url('<%= hotel.imageLink || "default_image.jpg" %>');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-price {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #stars {
+            color: gold;
+            font-size: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        #book {
+            padding: 15px 40px;
+            margin-bottom: 15px;
+            background-color: rgb(58, 62, 66);
+            color: aliceblue;
+            cursor: pointer;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+        }
+
+        .review-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            height: 190px;
+        }
+
+        .review {
+            background-color: white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            width: 200px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        .review img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .review .reviewr-info {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .review .reviewer-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .review .review-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review .review-body {
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container-main {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .picture,
+            .details {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../views/components/navbar.ejs') %>
+
+        <main>
+            <div class="container">
+                <div class="container-main">
+                    <div class="picture"></div>
+                    <div class="details">
+                        <div class="title-price">
+                            <h2>
+                                <%= hotel.name %>
+                            </h2>
+                            <h2>ราคา <%= hotel.price %> บ./คืน</h2>
+                        </div>
+                        <p>features: <br></p>
+                        <b>
+                            <%= hotel.details %>
+                        </b><br>
+                        <p>
+                            <%= hotel.address %>
+                        </p>
+
+                        <p id="stars">
+                            <% for (let i=0; i < 5; i++) { %>
+                                <%= i < hotel.rating ? '★' : '☆' %>
+                                    <% } %>
+                        </p>
+
+                        <button id="book" data-bs-toggle="modal" data-bs-target="#bookingModal">จอง</button>
+
+                    </div>
+                </div>
+                <!-- Review Container -->
+                <div class="review-container">
+                    <% if (reviews.length < 1) { %>
+                        <div class="review" style="display: flex; align-items: center; justify-content: center;">
+                            <h4>No comment</h4>
+                        </div>
+                        <% } %>
+                            <% reviews.forEach((review, index)=> { %> <!-- Loop over each review -->
+
+                                <div class="review">
+                                    <div class="stars-review">
+                                        <% for (let i=0; i < 5; i++) { %>
+                                            <%= i < review.rating ? '★' : '☆' %> <!-- Display stars based on rating -->
+                                                <% } %>
+                                    </div>
+                                    <h2 class="review-title">Review</h2>
+                                    <p class="review-body">
+                                        <%= review.review %>
+                                    </p> <!-- Display the review text -->
+
+                                    <div class="reviewer-info">
+                                        <!-- Use the specific profile image URL -->
+                                        <div class="reviewer-details">
+                                            <p>
+                                                <%= review.email.split('@')[0] %>
+                                            </p> <!-- Display reviewer name (before @) -->
+                                            <p>
+                                                <%= new Date(review.date).toLocaleDateString() %>
+                                            </p> <!-- Display review date -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %> <!-- End of loop -->
+                                    <div style="display: block;width: 150px;align-content: center;height: 200px;">
+                                        <% if (reviews.length> 4) { %>
+                                            <p style="margin-bottom: 10px;cursor: pointer; text-decoration: underline;"
+                                                onclick="window.location.href='/review/<%= hotel.name %>'">More Reviews
+                                            </p>
+                                            <% } %>
+                                                <p style="margin-bottom: 10px;cursor: pointer; text-decoration: underline"
+                                                    onclick="window.location.href='/comment/<%= hotel.name %>'">Comment
+                                                </p>
+                                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Review Form -->
+        <!-- Booking Modal -->
+        <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bookingModalLabel">Booking Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="bookingForm">
+                            <div class="mb-3">
+                                <label for="checkIn" class="form-label">Check-in Date</label>
+                                <input type="date" class="form-control" id="checkIn" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="checkOut" class="form-label">Check-out Date</label>
+                                <input type="date" class="form-control" id="checkOut" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="roomType" class="form-label">Type of Room</label>
+                                <select class="form-control" id="roomType" required>
+                                    <% hotel.rooms.forEach(function(room) { %>
+                                        <option value="<%= room.type %>" data-price="<%= room.priceP %>">
+                                            <%= room.type %> - <%= room.priceP %> บาท/คืน
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telNum" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="telNum" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="totalPrice" class="form-label">Total Price</label>
+                                <input type="text" class="form-control" id="totalPrice" disabled>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="confirmBooking">Confirm Booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            // Assuming you have more reviews to load dynamically:
+            document.getElementById("load-more").addEventListener("click", function () {
+                // Your logic to fetch and display more reviews
+                console.log("Loading more reviews...");
+                // You can use AJAX or fetch to load additional reviews without reloading the page.
+            });
+
+            document.getElementById("confirmBooking").addEventListener("click", async function () {
+                const checkIn = document.getElementById("checkIn").value;
+                const checkOut = document.getElementById("checkOut").value;
+                const roomType = document.getElementById("roomType").value;
+                const name = document.getElementById("name").value;
+                const telNum = document.getElementById("telNum").value;
+                const email = localStorage.getItem("userEmail");
+
+                if (!email) {
+                    alert("กรุณาเข้าสู่ระบบก่อนทำการจอง");
+                    return;
+                }
+
+                const bookingData = {
+                    email,
+                    checkIn,
+                    checkOut,
+                    roomType,
+                    name,
+                    telNum
+                };
+
+                const response = await fetch("/api/booking", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert("การจองสำเร็จ!");
+                    location.reload();
+                } else {
+                    alert(`เกิดข้อผิดพลาด: ${result.error}`);
+                }
+            });
+            document.getElementById("roomType").addEventListener("change", updatePrice);
+    document.getElementById("checkIn").addEventListener("change", updatePrice);
+    document.getElementById("checkOut").addEventListener("change", updatePrice);
+
+    function updatePrice() {
+        const roomSelect = document.getElementById("roomType");
+        const selectedOption = roomSelect.options[roomSelect.selectedIndex];
+        const pricePerNight = parseFloat(selectedOption.getAttribute("data-price"));
+
+        const checkInDate = document.getElementById("checkIn").value;
+        const checkOutDate = document.getElementById("checkOut").value;
+
+        if (checkInDate && checkOutDate && !isNaN(pricePerNight)) { // ตรวจสอบว่า pricePerNight เป็นตัวเลข
+            const checkIn = new Date(checkInDate);
+            const checkOut = new Date(checkOutDate);
+            const timeDifference = checkOut - checkIn;
+
+            if (timeDifference > 0) {
+                const numberOfNights = timeDifference / (1000 * 3600 * 24);
+                const totalPrice = numberOfNights * pricePerNight;
+                document.getElementById("totalPrice").value = totalPrice.toLocaleString('th-TH', { style: 'currency', currency: 'THB' }); // แสดงราคาเป็นสกุลเงินบาท
+            } else {
+                document.getElementById("totalPrice").value = "วันที่ไม่ถูกต้อง";
+            }
+        } else {
+            document.getElementById("totalPrice").value = "กรุณากรอกข้อมูลทั้งหมด";
+        }
+    }
+
+        </script>
+</body>
+
+</html>

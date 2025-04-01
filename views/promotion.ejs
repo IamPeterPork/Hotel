@@ -1,0 +1,36 @@
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar Example</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/coupon.css" />
+    <link rel="stylesheet" href="/public/CSS/navbarstyle.css">
+  </head>
+  <!-- coupons.ejs -->
+<body>
+  <%- include('components/navbar.ejs') %>
+
+  <div class="container">
+    <h1>โค้ดส่วนลด</h1>
+    <div class="container_bottom">
+      <% coupons.forEach(function(coupon) { %> <!-- Loop through coupons array -->
+        <div class="black-friday-component">
+          <div class="coupon">
+            <div class="box">
+              <span><%= coupon.discount %></span>
+              <span>OFF</span>
+            </div>
+            <div class="diver"></div>
+            <div class="content">
+              <h3>เมื่อจอง <%= coupon.nights %> คืนขึ้นไป</h3>
+              <p>กรอก <%= coupon.code %> ในช่องกรอกโค็ด</p>
+            </div>
+          </div>
+        </div>
+      <% }); %> <!-- End of loop -->
+    </div>
+  </div>
+</body>
+
+</html>

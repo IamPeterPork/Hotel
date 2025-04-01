@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbutton {
+            color: white;
+            background-color: transparent;
+            border: none;
+            margin-right: 15px;
+            font-size: 17px;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            background-color: rgb(18, 73, 110);
+            padding: 30px;
+        }
+
+        body {
+            display: block;
+            height: auto;
+            background-image: url(https://www.shutterstock.com/image-photo/white-passenger-airplane-flying-sky-600nw-2331577059.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .image {
+            display: block;
+            height: auto;
+            background-image: url(https://pix8.agoda.net/hotelImages/4363456/-1/a71d6ad4d29b2527b9bb824c6116cdf9.jpg?ca=12&ce=1&s=1024x);
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            display: flex;
+            margin: 25px 100px;
+            width: fit-content;
+            flex-direction: column;
+        }
+
+        .list-container {
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+        }
+
+        .list-block {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 30px;
+            padding: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 1300px;
+            height: 250px;
+        }
+
+        .list-block img {
+            width: 375px;
+            height: auto;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+
+        .details {
+            flex: 1;
+        }
+
+        .price {
+            font-weight: bold;
+            color: red;
+        }
+
+        .stars {
+            color: gold;
+        }
+
+        .search {
+            display: flex;
+            border-radius: 20px;
+            margin: 20px 0px;
+            box-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        .search input{
+            width: 30%;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button{
+            border: none;
+            border-radius: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <%- include('../views/components/navbar.ejs') %>
+    <main>
+        <div class="container">
+            <div class="search">
+                <input type="text" placeholder="ค้นหา โรงแรม">
+            </div>
+            <p>ผลการค้นหา: โรงแรมใกล้ฉัน</p>
+            <div class="list-container">
+                <button>
+                    <div class="list-block">
+                        <img src="https://pix8.agoda.net/hotelImages/4363456/-1/a71d6ad4d29b2527b9bb824c6116cdf9.jpg?ca=12&ce=1&s=1024x"
+                            alt="Hotel Image">
+                        <div class="details">
+                            <h4>NARRA Hotel</h4>
+                            <p>ห้องขนาด 4 ตารางเมตร 2 เตียง 1 ห้องน้ำ</p>
+                            <p>1 ตู้เย็น แอร์ ...</p>
+                            <p>สถานที่ใกล้เคียง: สยามพารากอน, Central World, ประตูน้ำ</p>
+                            <p class="price">ราคา 1540 บ./คืน</p>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </button>
+                <button>
+                    <div class="list-block">
+                        <img src="https://pix8.agoda.net/hotelImages/4363456/-1/a71d6ad4d29b2527b9bb824c6116cdf9.jpg?ca=12&ce=1&s=1024x"
+                            alt="Hotel Image">
+                        <div class="details">
+                            <h4>NARRA Hotel</h4>
+                            <p>ห้องขนาด 4 ตารางเมตร 2 เตียง 1 ห้องน้ำ</p>
+                            <p>1 ตู้เย็น แอร์ ...</p>
+                            <p>สถานที่ใกล้เคียง: สยามพารากอน, Central World, ประตูน้ำ</p>
+                            <p class="price">ราคา 1540 บ./คืน</p>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </button>
+                <button>
+                    <div class="list-block">
+                        <img src="https://pix8.agoda.net/hotelImages/4363456/-1/a71d6ad4d29b2527b9bb824c6116cdf9.jpg?ca=12&ce=1&s=1024x"
+                            alt="Hotel Image">
+                        <div class="details">
+                            <h4>NARRA Hotel</h4>
+                            <p>ห้องขนาด 4 ตารางเมตร 2 เตียง 1 ห้องน้ำ</p>
+                            <p>1 ตู้เย็น แอร์ ...</p>
+                            <p>สถานที่ใกล้เคียง: สยามพารากอน, Central World, ประตูน้ำ</p>
+                            <p class="price">ราคา 1540 บ./คืน</p>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </button>
+                <button>
+                    <div class="list-block">
+                        <img src="https://pix8.agoda.net/hotelImages/4363456/-1/a71d6ad4d29b2527b9bb824c6116cdf9.jpg?ca=12&ce=1&s=1024x"
+                            alt="Hotel Image">
+                        <div class="details">
+                            <h4>NARRA Hotel</h4>
+                            <p>ห้องขนาด 4 ตารางเมตร 2 เตียง 1 ห้องน้ำ</p>
+                            <p>1 ตู้เย็น แอร์ ...</p>
+                            <p>สถานที่ใกล้เคียง: สยามพารากอน, Central World, ประตูน้ำ</p>
+                            <p class="price">ราคา 1540 บ./คืน</p>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
